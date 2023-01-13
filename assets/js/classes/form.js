@@ -27,29 +27,41 @@ class Form{
     
     submit(){
         
+        let jsonForm = JSON.stringify(this);
+        
     }
     
     validate(){
         
         let subBtn = document.querySelector("body main form fieldset button");
-        let invalideFields = [];
+        let invalideFields = false;
         
         for(let i=0; i<this.#fields.length; i++){
             
             this.#fields[i].validate();
             
-            if(this.#fields[i].validate() === false){
+            if(this.#fields[i].errors.length > 0){
                 
-                invalideFields.push(this.#fields[i]);
+                invalideFields = true;
+                
             }
             
         }
-        if(invalideFields === []){
+        
+        
+        
+        if(invalideFields === true){
             
-                subBtn.classList.remove("disabled");
-                subBtn.setAttribute("disabled", false);
+            subBtn.classList.add("disabled");
+            subBtn.setAttribute("disabled", true);
+            
+        }else{
+            
+            subBtn.classList.remove("disabled");
+            subBtn.removeAttribute("disabled");
         }
-                console.log(invalideFields);    
+        
+          console.log(this); 
     }
     
     toJSON(){
